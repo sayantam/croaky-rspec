@@ -1,7 +1,38 @@
 ---
-language: ruby
-cache: bundler
-rvm:
-  - 2.5.7
-  - jruby
-before_install: gem install bundler -v 2.1.4
+env:
+  global:
+    - JRUBY_OPTS='-J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-Xss2m -Xcompile.invokedynamic=false'
+    - BUNDLER_VERSION='2.1.4'
+
+stages:
+  - name: test
+    if: branch = master AND type = pull_request
+  - name: publish
+    if: branch = master AND type = push
+
+jobs:
+  include:
+    - stage: test
+      name: "MRI compatibility test"
+      language: ruby
+      cache: bundler
+      rvm:
+        - 2.5.7
+        - 2.6.5
+        - 2.7.0
+      before_install: gem install bundler -v $BUNDLER_VERSION
+
+    - stage: test
+      name: "JRuby compatibility test"
+      language: ruby
+      cache: bundler
+      jdk: openjdk8
+      rvm: jruby-9.2.11.1
+      before_install: gem install bundler -v $BUNDLER_VERSION
+
+    - stage: publish
+      name: "Publish to RubyGems"
+      language: ruby
+      rvm: 2.7.0
+      before_install: gem install bundler -v $BUNDLER_VERSION
+      script: bundle exec rake -T
