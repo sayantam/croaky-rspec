@@ -6,7 +6,7 @@ env:
 
 stages:
   - name: test
-    if: branch = master AND type = pull_request
+    if: branch = master AND (tag IS blank)
   - name: publish
     if: branch = master AND type = push
 
