@@ -14,14 +14,16 @@ rvm:
   - 2.5.7
   - 2.6.5
   - 2.7.0
-  - jruby-9.2.11.1
-
-jdk: openjdk8
 
 before_install: gem install bundler -v $BUNDLER_VERSION
 
 jobs:
   include:
+    - stage: test
+      language: ruby
+      rvm: jruby-9.2.11.1
+      jdk: openjdk8
+      before_install: gem install bundler -v $BUNDLER_VERSION
     - stage: publish
       name: "Publish to RubyGems"
       language: ruby
