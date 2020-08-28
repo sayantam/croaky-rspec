@@ -2,12 +2,11 @@
 
 # Publishes a gem to rubygems.org
 
-set -ev
+set -e
 
 GEM_VERSION=$(ruby -I ./lib -r croaky/version -e 'puts Croaky::VERSION')
-GEM_NAME='croaky-rspec'
-
-if gem search "$GEM_NAME" -v "$GEM_VERSION" | grep "$GEM_VERSION"; then
+git tag --list | grep "$GEM_VERSION"
+if [ $? -ne 0 ]; then
   echo "Build and release new Gem version..."
   mkdir -p "$HOME"/.gem
   touch "$HOME"/.gem/credentials
