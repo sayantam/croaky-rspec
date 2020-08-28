@@ -23,6 +23,12 @@ module Croaky
         @io_stream = io_stream
       end
 
+      def start(notification)
+        super(notification)
+
+        io_stream.capture_io
+      end
+
       def example_started(_notification)
         io_stream.capture_io
       end

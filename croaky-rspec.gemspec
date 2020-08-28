@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'RSpec formatter that croaks only for failed examples.'
   spec.description   = <<-DESC
-  Captures stdout and stderr during an example run, and dumps them for failed examples only.
-  Progress is shown as per progress formatter
+  RSpec formatter that captures stdout and stderr during an example run, and dumps them for failed examples only.
+  Progress is shown as per progress formatter.
   DESC
   spec.homepage      = 'https://github.com/sayantam/croaky-rspec'
   spec.license       = 'MIT'
