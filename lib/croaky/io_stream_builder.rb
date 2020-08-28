@@ -4,15 +4,8 @@ require 'croaky/io/io_stream'
 
 module Croaky
   # Builds an IoStream based on the platform.
-  class Builder
-    def self.io_stream
-      return @io_stream if @io_stream
-
-      builder = self.new
-      @io_stream = builder.io_stream
-    end
-
-    def io_stream
+  class IoStreamBuilder
+    def build
       jruby_platform = defined?(JRUBY_VERSION)
       stdout_stream = jruby_platform ? java_stdout_stream : ruby_stdout_stream
       stderr_stream = jruby_platform ? java_stderr_stream : ruby_stderr_stream

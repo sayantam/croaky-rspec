@@ -13,16 +13,16 @@ module Croaky
       def capture_io
         super
 
-        self.java_stdout = JAVA_LANG.System.out
+        self.java_stdout = java.lang.System.out
         pw_out&.close
         self.pw_out = out_stream
-        JAVA_LANG.System.setOut(pw_out)
+        java.lang.System.setOut(pw_out)
       end
 
       def restore_io
         super
 
-        JAVA_LANG.System.setOut(java_stdout)
+        java.lang.System.setOut(java_stdout)
         pw_out.close
       end
 

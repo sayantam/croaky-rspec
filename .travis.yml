@@ -24,9 +24,10 @@ jobs:
       rvm: jruby-9.2.11.1
       jdk: openjdk8
       before_install: gem install bundler -v $BUNDLER_VERSION
+
     - stage: publish
       name: "Publish to RubyGems"
       language: ruby
       rvm: 2.7.0
       before_install: gem install bundler -v $BUNDLER_VERSION
-      script: bundle exec rake -T
+      script: ${TRAVIS_BUILD_DIR}/.ci/rubygems_publish.sh

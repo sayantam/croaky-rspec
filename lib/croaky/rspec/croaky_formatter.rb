@@ -3,7 +3,7 @@
 RSpec::Support.require_rspec_core 'formatters/base_text_formatter'
 RSpec::Support.require_rspec_core 'formatters/console_codes'
 
-require 'croaky/builder'
+require 'croaky/builders'
 require 'croaky/io/io_stream'
 
 module Croaky
@@ -17,7 +17,7 @@ module Croaky
 
       attr_reader :io_stream
 
-      def initialize(output, io_stream = ::Croaky::Builder.io_stream)
+      def initialize(output, io_stream = ::Croaky::Builders.io_stream)
         super(output)
 
         @io_stream = io_stream

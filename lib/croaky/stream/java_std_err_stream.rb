@@ -4,8 +4,6 @@ require 'croaky/stream/std_err_stream'
 
 module Croaky
   module Stream
-    JAVA_LANG = java.lang
-
     # Error stream for Java
     class JavaStdErrStream < StdErrStream
       attr_accessor :pw_err, :java_stderr
@@ -13,16 +11,16 @@ module Croaky
       def capture_io
         super
 
-        self.java_stderr = JAVA_LANG.System.err
+        self.java_stderr = java.lang.System.err
         pw_err&.close
         self.pw_err = err_stream
-        JAVA_LANG.System.setErr(pw_err)
+        java.lang.System.setErr(pw_err)
       end
 
       def restore_io
         super
 
-        JAVA_LANG.System.setErr(java_stderr)
+        java.lang.System.setErr(java_stderr)
         pw_err.close
       end
 
