@@ -5,9 +5,10 @@
 set -ev
 
 GEM_VERSION=$(ruby -I ./lib -r croaky/version -e 'puts Croaky::VERSION')
-GEM_NAME=$(ruby -e 'gem = eval(File.read("croaky-rspec.gemspec")); puts gem.name')
+GEM_NAME='croaky-rspec'
 
 if gem search "$GEM_NAME" -v "$GEM_VERSION" | grep "$GEM_VERSION"; then
+  echo "Build and release new Gem version..."
   mkdir -p "$HOME"/.gem
   touch "$HOME"/.gem/credentials
   chmod 0600 "$HOME"/.gem/credentials
