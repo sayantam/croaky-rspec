@@ -10,26 +10,18 @@ stages:
   - name: publish
     if: branch = master AND type = push
 
+rvm:
+  - 2.5.7
+  - 2.6.5
+  - 2.7.0
+  - jruby-9.2.11.1
+
+jdk: openjdk8
+
+before_install: gem install bundler -v $BUNDLER_VERSION
+
 jobs:
   include:
-    - stage: test
-      name: "MRI compatibility test"
-      language: ruby
-      cache: bundler
-      rvm:
-        - 2.5.7
-        - 2.6.5
-        - 2.7.0
-      before_install: gem install bundler -v $BUNDLER_VERSION
-
-    - stage: test
-      name: "JRuby compatibility test"
-      language: ruby
-      cache: bundler
-      jdk: openjdk8
-      rvm: jruby-9.2.11.1
-      before_install: gem install bundler -v $BUNDLER_VERSION
-
     - stage: publish
       name: "Publish to RubyGems"
       language: ruby
